@@ -29,6 +29,7 @@ PROJECT_META = {
     'category': 'Supervised Classification',
     'nav_group': 'Machine Learning',
     'tags': ['classification', 'random forest', 'gradient boosting', 'logistic regression', 'decision tree'],
+    'screenshot': 'mushroom_classification.png',
 }
 
 bp = Blueprint(
