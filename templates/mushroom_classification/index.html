@@ -25,7 +25,7 @@
 /* ── controls bar (model toggle + re-run) ─────────────────────── */
 .controls-bar {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
@@ -39,6 +39,7 @@
 }
 .model-btn {
     padding: 0.45rem 1rem;
+    height: 51px;
     background: var(--surface-light);
     color: var(--text-muted);
     border: 1px solid var(--border);
@@ -59,33 +60,16 @@
 .model-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* ── re-run button ────────────────────────────────────────────── */
-.btn-rerun {
-    display: none;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.45rem 1rem;
-    background: transparent;
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-.btn-rerun:hover { border-color: #10b981; color: #10b981; }
+.btn-rerun { display: none; }
 .btn-rerun.visible { display: inline-flex; }
 
 /* ── run status ───────────────────────────────────────────────── */
 .run-row {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-bottom: 1.25rem;
-    flex-wrap: wrap;
 }
 .run-status {
     font-size: 0.85rem;
@@ -96,7 +80,7 @@
 }
 .run-status.visible { display: flex; }
 
-/* spinner */
+/* spinner (used by EDA / compare loaders) */
 .spinner {
     width: 15px; height: 15px;
     border: 2px solid rgba(16, 185, 129, 0.25);
@@ -473,14 +457,19 @@
             <button class="model-btn" data-model="logistic_regression">Logistic Regression</button>
             <button class="model-btn" data-model="decision_tree">Decision Tree</button>
         </div>
-        <button class="btn-rerun" id="btnRerun">&#8635;&nbsp; Re-run</button>
+        <button class="btn-rerun action-btn" id="btnRerun">
+            <span class="action-btn-inner">
+                <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-4.95"></path></svg>
+                Re-run
+            </span>
+        </button>
     </div>
 
     <!-- Run status -->
     <div class="run-row">
+        <div class="pac-loader visible" id="spinner"></div>
         <span class="run-status visible" id="runStatus">
-            <span class="spinner visible" id="spinner"></span>
-            &nbsp;<span id="runLabel">Training model&hellip;</span>
+            <span id="runLabel">Training model&hellip;</span>
         </span>
     </div>
 
