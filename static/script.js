@@ -180,28 +180,34 @@
         label.textContent = 'Training ' + activeModel.replace(/_/g, ' ') + '\u2026';
         status.classList.add('visible');
 
+        var startTime = Date.now();
+
         var url = '/mushroom-classification/run?model=' + activeModel + (force ? '&force=true' : '');
         fetch(url)
             .then(function (r) { return r.json(); })
             .then(function (data) {
-                populateMetrics(data.metrics);
-                populateDataStrip(data.n_train, data.n_test, data.model_label);
+                var elapsed = Date.now() - startTime;
+                var remaining = Math.max(0, 2000 - elapsed);
+                setTimeout(function () {
+                    populateMetrics(data.metrics);
+                    populateDataStrip(data.n_train, data.n_test, data.model_label);
 
-                // Server-rendered images
-                document.getElementById('imgCM').src  = 'data:image/png;base64,' + data.confusion_matrix;
-                document.getElementById('imgROC').src = 'data:image/png;base64,' + data.roc_curve;
-                document.getElementById('imgPR').src  = 'data:image/png;base64,' + data.pr_curve;
+                    // Server-rendered images
+                    document.getElementById('imgCM').src  = 'data:image/png;base64,' + data.confusion_matrix;
+                    document.getElementById('imgROC').src = 'data:image/png;base64,' + data.roc_curve;
+                    document.getElementById('imgPR').src  = 'data:image/png;base64,' + data.pr_curve;
 
-                renderImportance(data.feature_importance);
+                    renderImportance(data.feature_importance);
 
-                document.getElementById('resultsSection').classList.add('visible');
+                    document.getElementById('resultsSection').classList.add('visible');
+                    document.getElementById('edaSection').style.display = 'block';
 
-                spinner.classList.remove('visible');
-                label.textContent = 'Pipeline complete \u2014 ' + data.model_label + '.';
-                setTimeout(function () { status.classList.remove('visible'); }, 2500);
-                btnRerun.disabled = false;
-                btnRerun.classList.add('visible');
-                document.querySelectorAll('.model-btn').forEach(function (b) { b.disabled = false; });
+                    spinner.classList.remove('visible');
+                    status.classList.remove('visible');
+                    btnRerun.disabled = false;
+                    btnRerun.classList.add('visible');
+                    document.querySelectorAll('.model-btn').forEach(function (b) { b.disabled = false; });
+                }, remaining);
             })
             .catch(function (err) {
                 console.error('Run error:', err);

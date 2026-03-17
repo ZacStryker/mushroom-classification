@@ -5,12 +5,21 @@
 {% block head_extra %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <style>
+/* ── Project accent tokens ────────────────────────────────────── */
+:root {
+    --project-accent:        #06b6d4;
+    --project-accent-text:   #67e8f9;
+    --project-accent-bg:     rgba(6, 182, 212, 0.08);
+    --project-accent-active: rgba(6, 182, 212, 0.15);
+    --project-accent-rim:    rgba(6, 182, 212, 0.25);
+}
+
 .page-mushroom-classification {
     padding-bottom: 4rem;
 }
 
 /* ── project header ───────────────────────────────────────────── */
-.back-link:hover { color: #34d399; }
+.back-link:hover { color: var(--project-accent-text); }
 
 /* ── main card ────────────────────────────────────────────────── */
 .main-card {
@@ -50,11 +59,11 @@
     cursor: pointer;
     transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.model-btn:hover  { border-color: #10b981; color: #34d399; }
+.model-btn:hover  { border-color: var(--project-accent); color: var(--project-accent-text); }
 .model-btn.active {
-    background: rgba(16, 185, 129, 0.16);
-    border-color: #10b981;
-    color: #34d399;
+    background: var(--project-accent-active);
+    border-color: var(--project-accent);
+    color: var(--project-accent-text);
     font-weight: 600;
 }
 .model-btn:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -83,8 +92,8 @@
 /* spinner (used by EDA / compare loaders) */
 .spinner {
     width: 15px; height: 15px;
-    border: 2px solid rgba(16, 185, 129, 0.25);
-    border-top-color: #10b981;
+    border: 2px solid var(--project-accent-rim);
+    border-top-color: var(--project-accent);
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
     display: none;
@@ -99,8 +108,8 @@
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
     padding: 0.75rem 1rem;
-    background: rgba(16, 185, 129, 0.06);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: var(--project-accent-bg);
+    border: 1px solid var(--project-accent-rim);
     border-radius: 10px;
     font-size: 0.82rem;
     color: var(--text-muted);
@@ -125,9 +134,9 @@
     gap: 0.35rem;
 }
 .step-chip.done {
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    color: #34d399;
+    background: var(--project-accent-bg);
+    border: 1px solid var(--project-accent-rim);
+    color: var(--project-accent-text);
 }
 .step-chip .step-num {
     font-size: 0.65rem;
@@ -136,7 +145,10 @@
 
 /* ── results section ──────────────────────────────────────────── */
 .results-section { display: none; }
-.results-section.visible { display: block; }
+.results-section.visible {
+    display: block;
+    animation: fadeInUp 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
 
 /* ── metrics row ──────────────────────────────────────────────── */
 .metrics-row {
@@ -175,11 +187,11 @@
     margin-top: 0.2rem;
     opacity: 0.75;
 }
-.metric-badge.green  .badge-value { color: #34d399; }
-.metric-badge.cyan   .badge-value { color: #00d4ff; }
-.metric-badge.pink   .badge-value { color: #f472b6; }
-.metric-badge.yellow .badge-value { color: #fbbf24; }
-.metric-badge.purple .badge-value { color: #a78bfa; }
+.metric-badge.green  .badge-value { color: var(--signal-green); }
+.metric-badge.cyan   .badge-value { color: var(--signal-cyan); }
+.metric-badge.pink   .badge-value { color: var(--signal-pink); }
+.metric-badge.yellow .badge-value { color: var(--signal-yellow); }
+.metric-badge.purple .badge-value { color: var(--signal-purple); }
 
 /* ── charts grids ─────────────────────────────────────────────── */
 .charts-grid-2 {
@@ -246,7 +258,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #34d399;
+    color: var(--project-accent-text);
     white-space: nowrap;
 }
 .section-divider-line {
@@ -305,7 +317,7 @@
     font-size: 0.9rem;
     font-weight: 600;
     margin: 1.1rem 0 0.5rem;
-    color: #34d399;
+    color: var(--project-accent-text);
 }
 .overview-card p {
     font-size: 0.9rem;
@@ -323,10 +335,10 @@
 .overview-card code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.82rem;
-    background: rgba(16, 185, 129, 0.1);
+    background: var(--project-accent-bg);
     padding: 0.1em 0.4em;
     border-radius: 4px;
-    color: #34d399;
+    color: var(--project-accent-text);
 }
 
 /* ── missing values panel ─────────────────────────────────── */
@@ -346,14 +358,14 @@
     font-weight: 600;
 }
 .miss-badge.clean {
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    color: #34d399;
+    background: var(--project-accent-bg);
+    border: 1px solid var(--project-accent-rim);
+    color: var(--project-accent-text);
 }
 .miss-badge.warn {
     background: rgba(251, 191, 36, 0.12);
     border: 1px solid rgba(251, 191, 36, 0.35);
-    color: #fbbf24;
+    color: var(--signal-yellow);
 }
 .miss-table {
     width: 100%;
@@ -379,7 +391,7 @@
 .miss-table tr:last-child td { border-bottom: none; }
 .miss-table td:nth-child(3),
 .miss-table td:nth-child(4) { font-family: 'JetBrains Mono', monospace; }
-.miss-pct  { color: #fbbf24; font-weight: 700; }
+.miss-pct  { color: var(--signal-yellow); font-weight: 700; }
 .miss-note {
     font-size: 0.82rem;
     color: var(--text-muted);
@@ -394,7 +406,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     background: rgba(251, 191, 36, 0.1);
-    color: #fbbf24;
+    color: var(--signal-yellow);
     padding: 0.1em 0.35em;
     border-radius: 3px;
 }
@@ -444,7 +456,7 @@
         <h1>Mushroom Classification</h1>
         <a href="https://github.com/ZacStryker/mushroom-classification" target="_blank" rel="noopener" class="project-repo-link" aria-label="View on GitHub"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
     </div>
-    <p class="subtitle">Full ML pipeline &mdash; edible vs poisonous &mdash; EDA, feature engineering, scaling, 4 classifiers with confusion matrix, ROC &amp; PR curves, and feature importance</p>
+    <p class="subtitle">Binary classification pipeline &mdash; edible vs poisonous &mdash; 4 models with confusion matrix, ROC &amp; PR curves, feature importance, and EDA</p>
 </div>
 
 <div class="main-card">
@@ -452,10 +464,10 @@
     <!-- Model toggle + re-run -->
     <div class="controls-bar">
         <div class="model-toggle">
-            <button class="model-btn active" data-model="random_forest">Random Forest</button>
-            <button class="model-btn" data-model="gradient_boosting">Gradient Boosting</button>
-            <button class="model-btn" data-model="logistic_regression">Logistic Regression</button>
-            <button class="model-btn" data-model="decision_tree">Decision Tree</button>
+            <button class="model-btn active" data-model="random_forest" aria-pressed="true">Random Forest</button>
+            <button class="model-btn" data-model="gradient_boosting" aria-pressed="false">Gradient Boosting</button>
+            <button class="model-btn" data-model="logistic_regression" aria-pressed="false">Logistic Regression</button>
+            <button class="model-btn" data-model="decision_tree" aria-pressed="false">Decision Tree</button>
         </div>
         <button class="btn-rerun action-btn" id="btnRerun">
             <span class="action-btn-inner">
@@ -467,9 +479,9 @@
 
     <!-- Run status -->
     <div class="run-row">
-        <div class="pac-loader visible" id="spinner"></div>
+        <div class="pac-loader visible" id="spinner" aria-hidden="true"></div>
         <span class="run-status visible" id="runStatus">
-            <span id="runLabel">Training model&hellip;</span>
+            <span id="runLabel" role="status" aria-live="polite">Training model&hellip; this may take 10&ndash;20 seconds</span>
         </span>
     </div>
 
@@ -552,7 +564,7 @@
                     </span>
                 </div>
                 <div class="chart-wrap">
-                    <canvas id="importanceChart"></canvas>
+                    <canvas id="importanceChart" role="img" aria-label="Bar chart showing feature importance scores for the selected classification model"></canvas>
                 </div>
             </div>
         </div>
@@ -588,24 +600,25 @@
                 </span>
             </div>
             <div class="compare-loading" id="compareLoading">
-                <span class="spinner visible" style="border-color:rgba(16,185,129,0.25);border-top-color:#10b981;"></span>
+                <span class="spinner visible"></span>
                 &nbsp;Training all models&hellip;
             </div>
             <div class="compare-wrap" id="compareWrap" style="display:none">
-                <canvas id="compareChart"></canvas>
+                <canvas id="compareChart" role="img" aria-label="Grouped bar chart comparing accuracy and F1 score across all four classification models"></canvas>
             </div>
         </div>
 
     </div><!-- /results-section -->
 
     <!-- ── EDA Section ──────────────────────────────────────────── -->
+    <div id="edaSection" style="display:none">
     <div class="section-divider">
         <span class="section-divider-title">Exploratory Data Analysis</span>
         <span class="section-divider-line"></span>
     </div>
 
     <div class="eda-loading" id="edaLoading">
-        <span class="spinner visible" style="border-color:rgba(16,185,129,0.25);border-top-color:#10b981;"></span>
+        <span class="spinner visible"></span>
         &nbsp;Generating EDA plots&hellip;
     </div>
 
@@ -662,6 +675,7 @@
         </div>
 
     </div><!-- /eda-grid -->
+    </div><!-- /edaSection -->
 
 </div><!-- /main-card -->
 
@@ -721,4 +735,16 @@
 
 {% block scripts %}
 <script src="{{ url_for('mushroom_classification.static', filename='script.js') }}"></script>
+<script>
+(function () {
+    /* Keep aria-pressed in sync with the .active class on model buttons */
+    var btns = document.querySelectorAll('.model-btn');
+    var obs = new MutationObserver(function () {
+        btns.forEach(function (b) {
+            b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false');
+        });
+    });
+    btns.forEach(function (b) { obs.observe(b, { attributes: true, attributeFilter: ['class'] }); });
+}());
+</script>
 {% endblock %}

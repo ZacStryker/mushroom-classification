@@ -25,7 +25,7 @@ PROJECT_META = {
     'name': 'Mushroom Classification',
     'description': 'Binary classification pipeline — edible vs poisonous — with EDA, feature engineering, 4 algorithms, confusion matrix, ROC & PR curves, and feature importance.',
     'icon': 'eco',
-    'color': '#10b981',
+    'color': '#06b6d4',
     'category': 'Supervised Classification',
     'nav_group': 'Machine Learning',
     'tags': ['classification', 'random forest', 'gradient boosting', 'logistic regression', 'decision tree'],
